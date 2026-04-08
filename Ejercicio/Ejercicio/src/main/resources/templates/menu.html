@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="menu.css">
+    <title>Menú</title>
+</head>
+<body>
+
+<div class="menu-navbar">
+    <div>Opciones</div>
+    <ul class="menu-opciones">
+        <li><a th:href="@{/usuarios}">Usuarios</a></li>
+        <li><a th:href="@{/productos}">Productos</a></li>
+        <li><a th:href="@{/logout}">Salir</a></li>
+    </ul>
+</div>
+
+<div class="menu-contenido">
+    <div class="card">
+        <h2>Bienvenido</h2>
+        <p>Selecciona una opción del menú.</p>
+    </div>
+</div>
+
+</body>
+</html>

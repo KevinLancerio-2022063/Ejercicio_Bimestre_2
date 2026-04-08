@@ -1,0 +1,37 @@
+body {
+ margin: 0;
+ font-family: 'Poppins', sans-serif;
+ background: #89cbad;
+}
+
+.menu-navbar {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ background: #4fb286;
+ padding: 15px 30px;
+ color: white;
+}
+
+.menu-opciones {
+ list-style: none;
+ display: flex;
+ gap: 20px;
+}
+
+.menu-opciones a {
+ color: white;
+ text-decoration: none;
+}
+
+.menu-contenido {
+ padding: 40px;
+}
+
+.card {
+ background: white;
+ padding: 20px;
+ border-radius: 15px;
+ box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+ margin-bottom: 20px;
+}
