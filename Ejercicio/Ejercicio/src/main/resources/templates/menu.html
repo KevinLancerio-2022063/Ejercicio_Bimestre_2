@@ -8,12 +8,20 @@
 <body>
 
 <div class="menu-navbar">
-    <div>Opciones</div>
-    <ul class="menu-opciones">
-        <li><a th:href="@{/usuarios}">Usuarios</a></li>
-        <li><a th:href="@{/productos}">Productos</a></li>
-        <li><a th:href="@{/logout}">Salir</a></li>
-    </ul>
+    <div class="menu-titulo">Opciones</div>
+
+    <div class="dropdown">
+        <button class="dropbtn">Menú ☰</button>
+
+        <ul class="dropdown-content">
+            <li><a th:href="@{/productos}">Productos</a></li>
+            <li><a th:href="@{/usuarios}">Usuarios</a></li>
+            <li><a th:href="@{/detalleVentas}">DetalleVentas</a></li>
+            <li><a th:href="@{/clientes}">Clientes</a></li>
+            <li><a th:href="@{/ventas}">Ventas</a></li>
+            <li><a th:href="@{/logout}">Cerrar sesión</a></li>
+        </ul>
+    </div>
 </div>
 
 <div class="menu-contenido">
