@@ -68,7 +68,34 @@ public class LoginController {
         return "productos";
     }
 
-    // Logout
+    // Página ventas
+    @GetMapping("/ventas")
+    public String ventas(HttpSession session) {
+        if (session.getAttribute("usuarioLogueado") == null) {
+            return "redirect:/usuario";
+        }
+        return "ventas";
+    }
+
+    // Página clientes
+    @GetMapping("/clientes")
+    public String clientes(HttpSession session) {
+        if (session.getAttribute("usuarioLogueado") == null) {
+            return "redirect:/usuario";
+        }
+        return "clientes";
+    }
+
+    // Página Detalle Ventas
+    @GetMapping("/detalleVentas")
+    public String detalleVentas(HttpSession session) {
+        if (session.getAttribute("usuarioLogueado") == null) {
+            return "redirect:/usuario";
+        }
+        return "detalleVentas";
+    }
+
+    // Cerrar sesión
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
