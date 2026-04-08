@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="productos.css">
+    <link rel="stylesheet" href="usuarios.css">
     <title>Productos</title>
 </head>
 <body>
@@ -15,24 +15,35 @@
     <div class="form-card">
         <h2>Registrar Producto</h2>
 
-        <div class="input-group">
-            <input type="text" placeholder="Nombre del producto">
+        <div class="imagen">
+            <img src="AgregarProducto.png" alt="Imagen de un producto siendo agregado" width="150" height="150">
         </div>
 
-        <div class="input-group">
-            <input type="number" placeholder="Precio">
-        </div>
+<div class="form-grid">
 
-        <div class="input-group">
-            <input type="number" placeholder="Stock">
-        </div>
+    <div class="input-group">
+        <input type="text" placeholder="NombreProducto">
+    </div>
 
-        <div class="input-group">
-            <input type="number" placeholder="Estado (0 o 1)">
-        </div>
+    <div class="input-group">
+        <input type="number" placeholder="precio">
+    </div>
+
+    <div class="input-group">
+        <input type="number" placeholder="stock">
+    </div>
+
+    <div class="input-group">
+        <input type="number" placeholder="Estado (0 o 1)">
+        <br>
+        <br>
+    </div>
+
+</div>
 
         <button>Registrar</button>
-
+        <br>
+        <br>
         <button class="volver" onclick="location.href='/menu'">Volver</button>
     </div>
 </div>
