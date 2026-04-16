@@ -19,6 +19,9 @@ public class Login {
     @Column(name = "contrasena")
     private String password;
 
+    @Column(name = "rol")
+    private String rol;
+
     public Integer getIdUsuario() {
         return idUsuario;
     }
@@ -41,5 +44,13 @@ public class Login {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 }
