@@ -53,6 +53,10 @@ public class UsuarioServiceImplements implements UsuarioService {
 
         return usuarioRepository.save(usuarioExistente);
     }
+    @Override
+    public Usuario buscarPorUsername(String username) {
+        return usuarioRepository.findByUsername(username);
 
+    }
 
 }
