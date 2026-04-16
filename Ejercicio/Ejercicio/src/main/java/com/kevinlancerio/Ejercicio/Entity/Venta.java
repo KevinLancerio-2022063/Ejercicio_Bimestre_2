@@ -27,7 +27,7 @@ public class Venta {
     private Double total;
 
     @NotNull(message = "El estado no puede estar vacío")
-    @Positive(message = "El estado no puede ser menor que 1")
+    @Max(value = 1, message = "El estado no puede ser menor que 1")
     @Column(name = "estado")
     private Integer estado;
 
@@ -37,7 +37,7 @@ public class Venta {
     private Integer clientes_dpi_cliente;
 
     @NotNull(message = "El FK_usuarios_codigo_usuario no puede estar vacío")
-    @Max(value = 1, message = "El FK no puede ser menor que 1 ")
+    @Positive( message = "El FK no puede ser menor que 1 ")
     @Column(name = "usuarios_codigo_usuario")
     private Integer usuarios_codigo_usuario;
 
