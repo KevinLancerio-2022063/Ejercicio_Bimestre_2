@@ -2,56 +2,121 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="usuarios.css">
     <title>Usuarios</title>
+    <link rel="stylesheet" th:href="@{/Base.css}">
 </head>
+
 <body>
 
 <div class="navbar">
-    <h2>Usuarios</h2>
+    <h2>Gestión de Usuarios</h2>
+</div>
+
+<input type="checkbox" id="togglePanel">
+
+<div class="panel-lista">
+
+    <div class="panel-header">
+        <h3>Usuarios</h3>
+        <label for="togglePanel" class="cerrar-btn">X</label>
+    </div>
+
+    <div class="search-box">
+        <input type="text" id="buscar" placeholder="Buscar usuario..." onkeyup="filtrarTabla()">
+    </div>
+
+    <br>
+
+    <table id="tablaUsuarios">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th>Contrasena</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="u : ${usuarios}">
+            <td th:text="${u.codigo_usuario}"></td>
+            <td th:text="${u.username}"></td>
+            <td th:text="${u.email}"></td>
+            <td th:text="${u.rol}"></td>
+            <td th:text="${u.estado}"></td>
+
+            <td th:if="${session.rol == 'ADMIN'}"
+                th:text="${u.password}"></td>
+            <td>
+
+                <a th:if="${session.rol == 'ADMIN'}"
+                   th:href="@{'/usuarios/editar/' + ${u.codigo_usuario}}">
+                    <button class="btn-edit">Editar</button>
+                </a>
+
+                <a th:if="${session.rol == 'ADMIN'}"
+                   th:href="@{'/usuarios/eliminar/' + ${u.codigo_usuario}}">
+                    <button class="btn-delete">Eliminar</button>
+                </a>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
 
 <div class="container">
     <div class="form-card">
-        <h2>Registrar Usuario</h2>
+
+        <h2 th:text="${usuario.codigo_usuario != null} ? 'Editar Usuario' : 'Registrar Usuario'"></h2>
 
         <div class="imagen">
-        <img src="AgregarUsuario.png" alt="Imagen de un usuario siendo agregado" width="150" height="150">
+            <img th:src="@{/images/AgregarUsuario.png}" alt="Imagen de un usuario siendo agregado" width="150" height="150">
         </div>
 
-        <div class="form-grid">
+        <form th:action="@{/usuarios/guardar}" th:object="${usuario}" method="post">
 
-            <div class="input-group">
-                <input type="text" placeholder="Username">
+            <input type="hidden" th:field="*{codigo_usuario}">
+
+            <div class="form-grid">
+
+                <input type="text" th:field="*{username}" placeholder="Username">
+                <input type="password" th:field="*{password}" placeholder="Password">
+                <input type="email" th:field="*{email}" placeholder="Email">
+                <input type="text" th:field="*{rol}" placeholder="Rol">
+                <input type="number" th:field="*{estado}" placeholder="Estado (0 o 1)">
+
             </div>
 
-            <div class="input-group">
-                <input type="password" placeholder="Password">
+            <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+
+            <div class="botones">
+
+                <label for="togglePanel" class="listar">
+                    Listar
+                </label>
+
+                <button type="submit" th:if="${session.rol == 'ADMIN'}">
+                    Guardar
+                </button>
+
+                <button type="button" onclick="location.href='/menu'" class="volver">
+                    Volver
+                </button>
+
             </div>
 
-            <div class="input-group">
-                <input type="email" placeholder="Email">
-            </div>
+        </form>
 
-            <div class="input-group">
-                <input type="text" placeholder="Rol">
-            </div>
-
-
-            <div class="input-group">
-                <input type="number" placeholder="Estado (0 o 1)">
-                <br>
-                <br>
-            </div>
-
-        </div>
-
-        <button>Registrar</button>
-        <br>
-        <br>
-        <button class="volver" onclick="location.href='/menu'">Volver</button>
     </div>
 </div>
 
 </body>
+
+<script th:src="@{/Scripts/scriptUsuarios.js}"></script>
+>
 </html>
