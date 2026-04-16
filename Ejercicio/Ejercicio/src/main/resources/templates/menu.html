@@ -7,28 +7,72 @@
 </head>
 <body>
 
-<div class="menu-navbar">
-    <div class="menu-titulo">Opciones</div>
+<div class="container">
 
-    <div class="dropdown">
-        <button class="dropbtn">Menú ☰</button>
+    <div class="left">
 
-        <ul class="dropdown-content">
-            <li><a th:href="@{/productos}">Productos</a></li>
-            <li><a th:href="@{/usuarios}">Usuarios</a></li>
-            <li><a th:href="@{/detalleVentas}">DetalleVentas</a></li>
-            <li><a th:href="@{/clientes}">Clientes</a></li>
-            <li><a th:href="@{/ventas}">Ventas</a></li>
-            <li><a th:href="@{/logout}">Cerrar sesión</a></li>
-        </ul>
-    </div>
-</div>
-
-<div class="menu-contenido">
-    <div class="card">
         <h2>Bienvenido</h2>
-        <p>Selecciona una opción del menú.</p>
+        <p>Selecciona una opción:</p>
+
+        <div class="grid">
+
+            <a th:href="@{/productos}" class="menu-btn">
+                <img src="images/EntidadProducto.png" alt="Productos">
+                <span>Productos</span>
+            </a>
+
+            <a th:href="@{/usuarios}" class="menu-btn">
+                <img src="images/EntidadUsuario.png" alt="Usuarios">
+                <span>Usuarios</span>
+            </a>
+
+            <a th:href="@{/clientes}" class="menu-btn">
+                <img src="images/EntidadCliente.png" alt="Clientes">
+                <span>Clientes</span>
+            </a>
+
+            <a th:href="@{/ventas}" class="menu-btn">
+                <img src="images/EntidadVenta.png" alt="Ventas">
+                <span>Ventas</span>
+            </a>
+
+            <a th:href="@{/detalleVentas}" class="menu-btn">
+                <img src="images/EntidadDetalleVenta.png" alt="Detalle Ventas">
+                <span>Detalle Ventas</span>
+            </a>
+
+        </div>
+
     </div>
+
+    <!-- LADO DERECHO: PERFIL -->
+    <div class="right" th:if="${session.usuario != null}">
+
+
+        <img th:if="${session.rol == 'ADMIN'}"
+             src="images/FotoPersonal.jpeg"
+             class="perfil-img"
+             alt="Admin">
+
+
+        <img th:if="${session.rol == 'USER'}"
+             src="images/UsuarioPerfil.webp"
+             class="perfil-img"
+             alt="User">
+
+
+        <img th:if="${session.rol == ''}"
+             src="images/UsuarioPerfil.webp"
+             class="perfil-img"
+             alt="User">
+
+        <p th:text="'Usuario: ' + ${session.usuario}"></p>
+        <p th:text="'Rol: ' + ${session.rol}"></p>
+
+        <a href="/logout" class="logout-btn">Cerrar sesión</a>
+
+    </div>
+
 </div>
 
 </body>
