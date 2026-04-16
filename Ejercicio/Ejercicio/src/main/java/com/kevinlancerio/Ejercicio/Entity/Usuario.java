@@ -84,4 +84,5 @@ public class Usuario {
     public void setEstado(Integer estado) {
         this.estado = estado;
     }
+
 }
