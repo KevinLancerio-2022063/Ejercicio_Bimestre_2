@@ -24,25 +24,12 @@ public class ProductoControllerHTML {
 
     @PostMapping("/guardar")
     public String guardar(Producto producto, HttpSession session) {
-
-        String rol = (String) session.getAttribute("rol");
-
-        if (!"ADMIN".equals(rol)) {
-            return "redirect:/productos";
-        }
-
         service.saveProducto(producto);
         return "redirect:/productos";
     }
 
     @GetMapping("/editar/{id}")
-    public String editar(@PathVariable Integer id, Model model, HttpSession session) {
-
-        String rol = (String) session.getAttribute("rol");
-
-        if (!"ADMIN".equals(rol)) {
-            return "redirect:/productos";
-        }
+    public String editar(@PathVariable Integer id, Model model) {
 
         model.addAttribute("producto", service.getProductosById(id));
         model.addAttribute("productos", service.getAllProductos());
@@ -50,15 +37,7 @@ public class ProductoControllerHTML {
     }
 
     @GetMapping("/eliminar/{id}")
-    public String eliminar(@PathVariable Integer id, HttpSession session) {
-
-        String rol = (String) session.getAttribute("rol");
-
-        if (!"ADMIN".equals(rol)) {
-            return "redirect:/productos";
-        }
-
-
+    public String eliminar(@PathVariable Integer id) {
         service.deleteProducto(id);
         return "redirect:/productos";
     }
