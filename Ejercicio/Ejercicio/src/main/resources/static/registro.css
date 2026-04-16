@@ -1,0 +1,94 @@
+* {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ font-family: 'Poppins', sans-serif;
+}
+
+body {
+ height: 100vh;
+ background: linear-gradient(135deg, #c8f7dc, #e8fce8);
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.card {
+ display: flex;
+}
+
+.login-container {
+ background: rgba(79, 178, 134, 0.25); /* más fuerte que fondo */
+ backdrop-filter: blur(12px);
+ padding: 40px;
+ border-radius: 20px;
+ width: 320px;
+ box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+ text-align: center;
+ color: #2c3e50;
+}
+
+.login-container h2 {
+ margin-bottom: 20px;
+}
+
+.imagen {
+ display: flex;
+ justify-content: center;
+ margin-bottom: 15px;
+}
+
+.input-group {
+ margin-bottom: 20px;
+}
+
+.input-group input {
+ width: 100%;
+ padding: 12px;
+ border-radius: 10px;
+ border: none;
+ margin-bottom: 10px;
+}
+
+button {
+ width: 100%;
+ padding: 12px;
+ border-radius: 10px;
+ border: none;
+ background: #4fb286;
+ color: white;
+ font-weight: bold;
+ cursor: pointer;
+ transition: 0.3s;
+}
+
+button:hover {
+ background: #3a9c73;
+}
+
+/* BOTÓN LOGIN */
+.switch {
+ margin-top: 15px;
+}
+
+.switch a {
+ display: block;
+ text-decoration: none;
+ background: #ffffff;
+ color: #4fb286;
+ padding: 12px;
+ border-radius: 10px;
+ font-weight: bold;
+ transition: 0.3s;
+ border: 2px solid #4fb286;
+}
+
+.switch a:hover {
+ background: #4fb286;
+ color: white;
+}
+
+.success {
+ color: #2ecc71;
+ margin-bottom: 10px;
+}
