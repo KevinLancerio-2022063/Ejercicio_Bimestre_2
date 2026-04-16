@@ -1,51 +1,118 @@
 <!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="usuarios.css">
-    <title>Productos</title>
+    <link rel="stylesheet" th:href="@{/Base.css}">
+
+
+    <title>Clientes</title>
 </head>
 <body>
 
 <div class="navbar">
-    <h2>Clientes</h2>
+    <h2>Gestión de Clientes</h2>
+</div>
+
+<input type="checkbox" id="togglePanel">
+
+<div class="panel-lista">
+
+    <div class="panel-header">
+        <h3>Clientes</h3>
+        <label for="togglePanel" class="cerrar-btn">X</label>
+    </div>
+
+    <div class="search-box">
+        <input type="text" id="buscar" placeholder="Buscar cliente..." onkeyup="filtrarTabla()">
+    </div>
+
+    <br>
+
+    <table id="tablaClientes">
+        <thead>
+        <tr>
+            <th>DPI</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Dirección</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="c : ${clientes}">
+            <td th:text="${c.dpi_cliente}"></td>
+            <td th:text="${c.nombre_cliente}"></td>
+            <td th:text="${c.apellido_cliente}"></td>
+            <td th:text="${c.direccion}"></td>
+            <td th:text="${c.estado}"></td>
+            <td>
+
+                <a th:if="${session.rol == 'ADMIN'}"
+                   th:href="@{'/clientes/editar/' + ${c.dpi_cliente}}">
+                    <button class="btn-edit">Editar</button>
+                </a>
+
+                <a th:if="${session.rol == 'ADMIN'}"
+                   th:href="@{'/clientes/eliminar/' + ${c.dpi_cliente}}">
+                    <button class="btn-delete">Eliminar</button>
+                </a>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
 
 <div class="container">
     <div class="form-card">
-        <h2>Registrar Cliente</h2>
+
+        <h2 th:text="${cliente.dpi_cliente != null} ? 'Editar Cliente' : 'Registrar Cliente'"></h2>
 
         <div class="imagen">
-            <img src="AgregarCliente.png" alt="Imagen de un cliente siendo agregado" width="150" height="150">
+            <img th:src="@{/images/AgregarCliente.png}" alt="Imagen de tres clientes sobre una mano como clientes" width="150" height="150">
         </div>
 
-<div class="form-grid">
+        <form th:action="@{/clientes/guardar}" th:object="${cliente}" method="post">
 
-    <div class="input-group">
-        <input type="text" placeholder="NombreCliente">
-    </div>
+            <input type="hidden" th:field="*{dpi_cliente}" />
 
-    <div class="input-group">
-        <input type="text" placeholder="ApellidoCliente">
-    </div>
+            <div class="form-grid">
 
-    <div class="input-group">
-        <input type="text" placeholder="Direccion">
-    </div>
+                <input type="text" th:field="*{nombre_cliente}" placeholder="Nombre">
+                <input type="text" th:field="*{apellido_cliente}" placeholder="Apellido">
+                <input type="text" th:field="*{direccion}" placeholder="Dirección">
+                <input type="number" th:field="*{estado}" placeholder="Estado (0 o 1)">
 
-    <div class="input-group">
-        <input type="number" placeholder="Estado (0 o 1)">
-        <br>
-        <br>
-    </div>
+            </div>
 
-</div>
-        <button>Registrar</button>
-        <br>
-        <br>
-        <button class="volver" onclick="location.href='/menu'">Volver</button>
+            <div class="botones">
+
+                <label for="togglePanel" class="listar">
+                    Listar
+                </label>
+
+                <button type="submit"
+                        th:if="${session.rol == 'ADMIN'}"
+                        th:text="${cliente.dpi_cliente != null} ? 'Actualizar' : 'Guardar'">
+                </button>
+
+                <button type="button" onclick="location.href='/menu'" class="volver">
+                    Volver
+                </button>
+
+            </div>
+
+        </form>
+
     </div>
 </div>
 
 </body>
+
+<script th:src="@{/Scripts/scriptCliente.js}"></script>
+
 </html>
