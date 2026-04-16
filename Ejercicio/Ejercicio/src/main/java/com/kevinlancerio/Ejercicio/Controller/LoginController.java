@@ -42,7 +42,7 @@ public class LoginController {
             return "loginInicio";
         }
     }
-    
+
     @GetMapping("/registro")
     public String registro() {
         return "registro";
