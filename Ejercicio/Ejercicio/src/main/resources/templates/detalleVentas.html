@@ -1,59 +1,122 @@
 <!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="usuarios.css">
+    <link rel="stylesheet" th:href="@{/Base.css}">
     <title>DetalleVentas</title>
 </head>
 <body>
 
 <div class="navbar">
-    <h2>DetalleVentas</h2>
+    <h2>Detalle de Ventas</h2>
+</div>
+
+<input type="checkbox" id="togglePanel">
+
+<div class="panel-lista">
+
+    <div class="panel-header">
+        <h3>Detalles</h3>
+        <label for="togglePanel" class="cerrar-btn">X</label>
+    </div>
+
+    <div class="search-box">
+        <input type="text" id="buscar" placeholder="Buscar detalle..." onkeyup="filtrarTabla()">
+    </div>
+
+    <br>
+
+    <table id="tablaDetalles">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Subtotal</th>
+            <th>Producto</th>
+            <th>Venta</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="d : ${detalles}">
+            <td th:text="${d.codigo_detalle_venta}"></td>
+            <td th:text="${d.cantidad}"></td>
+            <td th:text="${d.precio_unitario}"></td>
+            <td th:text="${d.subtotal}"></td>
+            <td th:text="${d.productos_codigo_producto}"></td>
+            <td th:text="${d.ventas_codigo_venta}"></td>
+            <td>
+                <a th:if="${session.rol == 'ADMIN'}"
+                   th:href="@{'/detalleVentas/editar/' + ${d.codigo_detalle_venta}}">
+                    <button class="btn-edit">Editar</button>
+                </a>
+
+                <a th:if="${session.rol == 'ADMIN'}"
+                   th:href="@{'/detalleVentas/eliminar/' + ${d.codigo_detalle_venta}}">
+                    <button class="btn-delete">Eliminar</button>
+                </a>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
 
 <div class="container">
     <div class="form-card">
-        <h2>Registrar Detalle Venta</h2>
+
+        <h2 th:text="${detalle.codigo_detalle_venta != null} ? 'Editar Detalle' : 'Registrar Detalle'"></h2>
 
         <div class="imagen">
-            <img src="AgregarDetalleVenta.png" alt="Imagen de un detalle venta siendo agregada" width="150" height="150">
+            <img th:src="@{/images/AgregarDetalleVenta.png}" alt="Imagen de un detalle venta siendo agregado" width="150" height="150">
         </div>
-<div class="form-grid">
 
-    <div class="input-group">
-        <input type="number" placeholder="Cantidad">
-    </div>
+        <form th:action="@{/detalleVentas/guardar}" th:object="${detalle}" method="post">
 
-    <div class="input-group">
-        <input type="number" placeholder="PrecioUnitario">
-    </div>
+            <input type="hidden" th:field="*{codigo_detalle_venta}" />
 
-    <div class="input-group">
-        <input type="number" placeholder="Subtotal">
-    </div>
+            <div class="form-grid">
 
-    <div class="input-group">
-        <input type="number" placeholder="FK_Producto">
-    </div>
+                <input type="number" th:field="*{cantidad}" placeholder="Cantidad">
 
-    <div class="input-group">
-        <input type="number" placeholder="FK_Ventas">
-    </div>
+                <input type="number" step="0.01" th:field="*{precio_unitario}" placeholder="Precio Unitario">
 
-    <div class="input-group">
-        <input type="number" placeholder="Estado (0 o 1)">
-        <br>
-        <br>
-    </div>
+                <input type="number" step="0.01" th:field="*{subtotal}" placeholder="Subtotal">
 
-</div>
+                <input type="number" th:field="*{productos_codigo_producto}" placeholder="Código Producto">
 
-        <button>Registrar</button>
-        <br>
-        <br>
-        <button class="volver" onclick="location.href='/menu'">Volver</button>
+                <input type="number" th:field="*{ventas_codigo_venta}" placeholder="Código Venta">
+
+            </div>
+
+            <div class="botones">
+
+                <label for="togglePanel" class="listar">
+                    Listar
+                </label>
+
+                <button type="submit"
+                        th:if="${session.rol == 'ADMIN'}"
+                        th:text="${detalle.codigo_detalle_venta != null} ? 'Actualizar' : 'Guardar'">
+                </button>
+
+                <button type="button" onclick="location.href='/menu'" class="volver">
+                    Volver
+                </button>
+
+            </div>
+
+        </form>
+
     </div>
 </div>
 
 </body>
+
+<script th:src="@{/Scripts/scriptDetalleVentas.js}"></script>
+
 </html>
