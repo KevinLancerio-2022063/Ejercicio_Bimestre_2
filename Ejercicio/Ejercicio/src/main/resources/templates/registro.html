@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+
+    <link rel="stylesheet" th:href="@{/registro.css}">
+</head>
+<body>
+
+<div class="card">
+
+    <div class="left">
+
+    </div>
+
+    <div class="login-container">
+
+        <h2>Registro</h2>
+
+        <div class="imagen">
+            <img th:src="@{/images/UsuarioAgregadoRegistro.png}" alt="Imagen de un usuario siendo agregado" width="200" height="200">
+        </div>
+
+        <div th:if="${success}" class="success">
+            <span th:text="${success}"></span>
+        </div>
+
+        <form th:action="@{/registro}" method="post">
+
+            <div class="input-group">
+                <input type="text" name="usuario" placeholder="Usuario" required>
+                <input type="password" name="password" placeholder="Contraseña" required>
+            </div>
+
+            <button type="submit">Registrarse</button>
+
+        </form>
+
+        <div class="switch">
+            <a th:href="@{/loginInicio}">¿Ya tienes cuenta? Inicia sesión</a>
+        </div>
+
+    </div>
+
+</body>
+</html>
