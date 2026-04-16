@@ -13,4 +13,6 @@ public interface UsuarioService {
     Usuario saveUsuario (Usuario usuario) throws RuntimeException;
     Usuario updateUsuario (Integer id, Usuario usuario);
     void deleteUsuario (Integer id);
+
+    Usuario buscarPorUsername(String username);
 }
