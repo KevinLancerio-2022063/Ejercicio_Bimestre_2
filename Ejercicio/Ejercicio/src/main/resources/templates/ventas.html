@@ -1,54 +1,122 @@
 <!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="usuarios.css">
-    <title>Productos</title>
+    <link rel="stylesheet" th:href="@{/Base.css}">
+    <title>Ventas</title>
 </head>
 <body>
 
 <div class="navbar">
-    <h2>Ventas</h2>
+    <h2>Gestión de Ventas</h2>
+</div>
+
+<input type="checkbox" id="togglePanel">
+
+<div class="panel-lista">
+
+    <div class="panel-header">
+        <h3>Ventas</h3>
+        <label for="togglePanel" class="cerrar-btn">X</label>
+    </div>
+
+    <div class="search-box">
+        <input type="text" id="buscar" placeholder="Buscar venta..." onkeyup="filtrarTabla()">
+    </div>
+
+    <br>
+
+    <table id="tablaVentas">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Total</th>
+            <th>Estado</th>
+            <th>Cliente</th>
+            <th>Usuario</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="v : ${ventas}">
+            <td th:text="${v.codigo_venta}"></td>
+            <td th:text="${v.fecha_venta}"></td>
+            <td th:text="${v.total}"></td>
+            <td th:text="${v.estado}"></td>
+            <td th:text="${v.clientes_dpi_cliente}"></td>
+            <td th:text="${v.usuarios_codigo_usuario}"></td>
+            <td>
+
+                <a th:if="${session.rol == 'ADMIN'}"
+                   th:href="@{'/ventas/editar/' + ${v.codigo_venta}}">
+                    <button class="btn-edit">Editar</button>
+                </a>
+
+                <a th:if="${session.rol == 'ADMIN'}"
+                   th:href="@{'/ventas/eliminar/' + ${v.codigo_venta}}">
+                    <button class="btn-delete">Eliminar</button>
+                </a>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
 
 <div class="container">
     <div class="form-card">
-        <h2>Registrar Venta</h2>
+
+        <h2 th:text="${venta.codigo_venta != null} ? 'Editar Venta' : 'Registrar Venta'"></h2>
 
         <div class="imagen">
-            <img src="AgregarVenta.png" alt="Imagen de una venta siendo agregada" width="150" height="150">
+            <img th:src="@{/images/AgregarVenta.png}" alt="Imagen de una venta siendo agregado" width="150" height="150">
         </div>
 
-<div class="form-grid">
+        <form th:action="@{/ventas/guardar}" th:object="${venta}" method="post">
 
-    <div class="input-group">
-        <input type="date" placeholder="Fecha">
-    </div>
+            <input type="hidden" th:field="*{codigo_venta}" />
 
-    <div class="input-group">
-        <input type="number" placeholder="Total">
-    </div>
+            <div class="form-grid">
 
-    <div class="input-group">
-        <input type="number" placeholder="Estado (0 o 1)">
-    </div>
+                <input type="date" th:field="*{fecha_venta}" placeholder="Fecha">
 
-    <div class="input-group">
-        <input type="number" placeholder="FK_Clientes">
-    </div>
+                <input type="number" step="0.01" th:field="*{total}" placeholder="Total">
 
-    <div class="input-group">
-        <input type="numer" placeholder="FK_Usuarios">
+                <input type="number" th:field="*{estado}" placeholder="Estado">
+
+                <input type="number" th:field="*{clientes_dpi_cliente}" placeholder="DPI Cliente">
+
+                <input type="number" th:field="*{usuarios_codigo_usuario}" placeholder="Código Usuario">
+
+            </div>
+
+            <div class="botones">
+
+                <label for="togglePanel" class="listar">
+                    Listar
+                </label>
+
+                <button type="submit"
+                        th:if="${session.rol == 'ADMIN'}"
+                        th:text="${venta.codigo_venta != null} ? 'Actualizar' : 'Guardar'">
+                </button>
+
+                <button type="button" onclick="location.href='/menu'" class="volver">
+                    Volver
+                </button>
+
+            </div>
+
+        </form>
+
     </div>
-        <br>
-        <br>
 </div>
-        <button>Registrar</button>
-        <br>
-        <br>
-        <button class="volver" onclick="location.href='/menu'">Volver</button>
-    </div>
-</div>
+
+<script th:src="@{/Scripts/ventas.js}"></script>
 
 </body>
 </html>
