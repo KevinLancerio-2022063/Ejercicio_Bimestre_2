@@ -10,20 +10,24 @@
 <div class="login-container">
     <h2>Iniciar Sesión</h2>
 
-    <img src="UsuarioPerfil.webp" alt="Imagen de una persona formal" width="200" height="200">
+    <img th:src="@{/images/UsuarioPerfil.webp}" alt="Imagen de una persona formal" width="200" height="200">
+
+    <div th:if="${error}" class="error">
+        <span th:text="${error}"></span>
+    </div>
 
     <form th:action="@{/login}" method="post">
         <div class="input-group">
             <input type="text" name="usuario" placeholder="Usuario" required>
-        </div>
-
-        <div class="input-group">
             <input type="password" name="password" placeholder="Contraseña" required>
+            <button type="submit">Ingresar</button>
         </div>
-
-        <button type="submit">Ingresar</button>
     </form>
 
+
+    <div class="switch">
+        <a th:href="@{/registro}">¿No tienes cuenta? Regístrate</a>
+    </div>
 </div>
 
 </body>
