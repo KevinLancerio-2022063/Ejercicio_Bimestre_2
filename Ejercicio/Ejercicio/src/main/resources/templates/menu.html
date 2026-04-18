@@ -45,7 +45,6 @@
 
     </div>
 
-    <!-- LADO DERECHO: PERFIL -->
     <div class="right" th:if="${session.usuario != null}">
 
 
@@ -54,17 +53,22 @@
              class="perfil-img"
              alt="Admin">
 
+        <form th:if="${session.rol == 'USER'}"
+              th:action="@{/subirImagen}"
+              method="post"
+              enctype="multipart/form-data">
 
-        <img th:if="${session.rol == 'USER'}"
-             src="images/UsuarioPerfil.webp"
-             class="perfil-img"
-             alt="User">
+            <label for="fileInput">
+                <img th:src="@{/loginInicio/imagen}" class="perfil-img">
+            </label>
 
+            <input type="file" name="file" id="fileInput" accept="image/png, image/jpeg" hidden>
 
-        <img th:if="${session.rol == ''}"
-             src="images/UsuarioPerfil.webp"
-             class="perfil-img"
-             alt="User">
+            <br>
+            <br>
+            <button type="submit">Guardar imagen</button>
+
+        </form>
 
         <p th:text="'Usuario: ' + ${session.usuario}"></p>
         <p th:text="'Rol: ' + ${session.rol}"></p>
