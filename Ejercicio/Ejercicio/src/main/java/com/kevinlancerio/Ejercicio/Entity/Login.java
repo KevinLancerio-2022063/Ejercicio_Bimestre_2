@@ -22,6 +22,10 @@ public class Login {
     @Column(name = "rol")
     private String rol;
 
+    @Lob
+    @Column(name = "imagen", columnDefinition = "LONGBLOB")
+    private byte[] imagen;
+
     public Integer getIdUsuario() {
         return idUsuario;
     }
@@ -53,4 +57,13 @@ public class Login {
     public void setRol(String rol) {
         this.rol = rol;
     }
+
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
+    }
+
 }
