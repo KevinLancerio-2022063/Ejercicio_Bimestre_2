@@ -3,6 +3,21 @@ drop database if exists Ejercicio_in5cm;
 create database Ejercicio_in5cm;
 use Ejercicio_in5cm;
 
+create table Login (
+	id_usuario int not null auto_increment primary key,
+    usuarios varchar (100),
+    contrasena varchar (100),
+    rol varchar(20)
+);
+
+insert into Login (usuarios, contrasena, rol) values
+("Kevin", "123", "ADMIN"),
+("Luis", "456", "USER");
+
+alter table Login add imagen longblob; -- Permite guardar imágenes directamente en la BD el longblob
+
+select * from Login;
+
 create table Clientes (
 	dpi_cliente int not null primary key auto_increment,
 	nombre_cliente varchar (50) not null,
@@ -339,7 +354,6 @@ delimiter $$
 		delete from DetalleVentas where codigo_detalle_venta = codigo_detalle_ven;
 	end $$
 delimiter ;
-
 select * from Clientes;
 select * from Usuarios;
 select * from Productos;
