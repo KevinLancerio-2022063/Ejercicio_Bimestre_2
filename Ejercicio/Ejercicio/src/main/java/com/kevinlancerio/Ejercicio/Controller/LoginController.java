@@ -95,7 +95,7 @@ public class LoginController {
     @GetMapping("/menu")
     public String menu() {
         return "menu";
-    }   
+    }
 
     @PostMapping("/subirImagen")
     public String subirImagen(@RequestParam("file") MultipartFile file,
