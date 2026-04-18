@@ -1,6 +1,8 @@
 package com.kevinlancerio.Ejercicio.Service;
 
 import com.kevinlancerio.Ejercicio.Entity.Login;
+import com.kevinlancerio.Ejercicio.Entity.Producto;
+import com.kevinlancerio.Ejercicio.Entity.Usuario;
 import com.kevinlancerio.Ejercicio.Repository.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,5 +51,14 @@ public class LoginServiceImplements implements LoginService {
         repo.deleteById(id);
     }
 
+    @Override
+    public Login saveLogin(Login login) throws RuntimeException {
+       return repo.save(login);
+    }
+
+    @Override
+    public Login buscarPorUsuario (String Usuario) {
+        return repo.findByUsuario(Usuario);
+    }
 }
 
